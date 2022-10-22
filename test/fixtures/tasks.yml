@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  task_title: MyString
+  task_detail: MyText
+  due_date: 2022-10-22 11:57:25
+  category: one
+
+two:
+  task_title: MyString
+  task_detail: MyText
+  due_date: 2022-10-22 11:57:25
+  category: two

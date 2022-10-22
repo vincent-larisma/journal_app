@@ -1,0 +1,13 @@
+<%= form_with model: @category do |form| %>
+    <h2>Category Create</h2>
+    <div>
+        <%= form.label :category_title %>
+        <%= form.text_field :category_title %>
+    </div>
+    
+    <div>
+        <%= form.label :category_detail %>
+        <%= form.text_area :category_detail %>
+    </div>
+    <%= form.submit "Create New" %>
+<% end %>
