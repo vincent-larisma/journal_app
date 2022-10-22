@@ -11,13 +11,19 @@
 <-------------->
 
 <h2>Show Tasks</h2>
-<%= @tasks.each do |task| %>
+<% @tasks.each do |task| %>
     <h1>Title</h1>
     <%= task.task_title %>
     <h3>detail</h3>
     <%= task.task_detail %>
     <h3>due date</h3>
     <%= task.due_date %>
+
+    <h3>ACTION</h3>
+    <%= link_to 'Show', category_task_path(task.id)  %>
+    <%= link_to 'Destroy Task', [task.category, task],
+              method: :delete,
+              data: { confirm: "Are you sure?" } %>
 <% end %>
 
 <br>
@@ -26,23 +32,6 @@
 
 <br>
 
-<h2>Add task</h2>
-<%= form_with model: [ @category, @category.tasks.build ] do |form| %>
-  <p>
-    <%= form.label :task_title %><br>
-    <%= form.text_field :task_title %>
-  </p>
-  <p>
-    <%= form.label :task_detail %><br>
-    <%= form.text_area :task_detail %>
-  </p>
-  <p>
-    <%= form.label :due_date %><br>
-    <%= form.date_field :due_date %>
-  </p>
-  <p>
-    <%= form.submit %>
-  </p>
-<% end %>
+<%= render "tasks/form" %>
 
 <%= link_to "BACK", categories_path %>

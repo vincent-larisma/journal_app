@@ -1,0 +1,18 @@
+<h2>Add task</h2>
+<%= form_with model: [ @category, @category.tasks.build ] do |form| %>
+  <p>
+    <%= form.label :task_title %><br>
+    <%= form.text_field :task_title %>
+  </p>
+  <p>
+    <%= form.label :task_detail %><br>
+    <%= form.text_area :task_detail %>
+  </p>
+  <p>
+    <%= form.label :due_date %><br>
+    <%= form.date_field :due_date %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
