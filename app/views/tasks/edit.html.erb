@@ -1,2 +1,19 @@
 <h1>You are editing a task</h1>
 
+<%= form_with model: [ @category , @category.tasks.find(params[:category_id]) ] do |form| %>
+  <p>
+    <%= form.label :task_title %><br>
+    <%= form.text_field :task_title %>
+  </p>
+  <p>
+    <%= form.label :task_detail %><br>
+    <%= form.text_area :task_detail %>
+  </p>
+  <p>
+    <%= form.label :due_date %><br>
+    <%= form.date_field :due_date %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>

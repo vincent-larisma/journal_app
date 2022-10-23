@@ -17,14 +17,16 @@
     <h3>detail</h3>
     <%= task.task_detail %>
     <h3>due date</h3>
-    <%= task.due_date %>
+    <%= task.due_date.strftime("%B %d, %Y") %>
 
     <h3>ACTION</h3>
     <%= link_to 'Show', category_task_path(task.id)  %>
+    <%= link_to 'Edit', edit_category_task_path(task.id)  %>
     <%= link_to 'Destroy Task', [task.category, task],
               method: :delete,
               data: { confirm: "Are you sure?" } %>
 <% end %>
+
 
 <br>
 <-------------->

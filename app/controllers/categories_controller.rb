@@ -8,6 +8,8 @@ class CategoriesController < ApplicationController
 
     def show
         @tasks = @category.tasks
+
+        @events = @tasks.where("time < ?", params[:due_date])
     end
     
     def new
