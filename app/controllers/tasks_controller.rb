@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+    before_action :authenticate_user!
 
     def create
         @category = Category.find(params[:category_id])

@@ -17,7 +17,9 @@
     <h3>detail</h3>
     <%= task.task_detail %>
     <h3>due date</h3>
-    <%= task.due_date.strftime("%B %d, %Y") %>
+    <% if task.due_date %>
+        <%= task.due_date.strftime("%B %d, %Y") %>
+    <% end %>
 
     <h3>ACTION</h3>
     <%= link_to 'Show', category_task_path(task.id)  %>

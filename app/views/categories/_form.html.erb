@@ -1,5 +1,9 @@
 <%= form_with model: @category do |form| %>
     <h2>Category Create</h2>
+
+    <% @category.errors.full_messages.each do |message|%>
+        <%= message %>
+    <% end %>
     <div>
         <%= form.label :category_title %>
         <%= form.text_field :category_title %>

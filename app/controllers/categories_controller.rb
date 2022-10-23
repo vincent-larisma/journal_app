@@ -1,15 +1,15 @@
 class CategoriesController < ApplicationController
-
+    before_action :authenticate_user!
     before_action :find_category_id, only: [:show, :edit, :update, :destroy]
 
     def index
-        @categories = Category.all
+        @categories = current_user.categories
     end
 
     def show
         @tasks = @category.tasks
 
-        @events = @tasks.where("time < ?", params[:due_date])
+        # @events = @tasks.where("time < ?", params[:due_date])
     end
     
     def new
@@ -17,7 +17,7 @@ class CategoriesController < ApplicationController
     end
 
     def create
-        @category = Category.new(category_params)
+        @category = current_user.categories.build(category_params)
 
         if @category.save
             redirect_to categories_path
@@ -47,7 +47,7 @@ class CategoriesController < ApplicationController
     private
 
     def find_category_id
-        @category = Category.find(params[:id])
+        @category = current_user.categories.find(params[:id])
     end
 
     def category_params
