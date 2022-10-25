@@ -2,24 +2,25 @@ class TasksController < ApplicationController
     before_action :authenticate_user!
 
     def create
-        @category = Category.find(params[:category_id])
+        @category = current_user.categories.find(params[:category_id])
         @category.tasks.create(task_params)
 
         redirect_to category_path(@category)
     end
 
     def show
-        @category = Category.find(params[:id])
+        @category = current_user.categories.find(params[:category_id])
         @task = @category.tasks.find(params[:category_id])
     end
 
     def edit
-        @category = Category.find(params[:id])
+        @category = current_user.categories.find(params[:category_id])
         @task = @category.tasks.find(params[:category_id])
+        
     end
 
     def update
-        @category = Category.find(params[:category_id])
+        @category = current_user.categories.find(params[:category_id])
         @task = @category.tasks.find(params[:id])
 
          if @task.update(task_params)
@@ -30,7 +31,7 @@ class TasksController < ApplicationController
     end
 
     def destroy
-        @category = Category.find(params[:category_id])
+        @category = current_user.categories.find(params[:category_id])
         @task = @category.tasks.find(params[:id]).destroy
         redirect_to category_path(@category)
 

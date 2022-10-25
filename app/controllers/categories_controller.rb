@@ -9,7 +9,10 @@ class CategoriesController < ApplicationController
     def show
         @tasks = @category.tasks
 
-        # @events = @tasks.where("time < ?", params[:due_date])
+        @today_events = @category.tasks.where("due_date = ?", Date.current)
+        @after_events = @category.tasks.where("due_date > ?", Date.current)
+        @before_events = @category.tasks.where("due_date < ?", Date.current)
+
     end
     
     def new
