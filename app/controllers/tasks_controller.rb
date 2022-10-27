@@ -9,12 +9,12 @@ class TasksController < ApplicationController
     end
 
     def show
-        @category = current_user.categories.find(params[:category_id])
+        @category = current_user.categories.find(params[:id])
         @task = @category.tasks.find(params[:category_id])
     end
 
     def edit
-        @category = current_user.categories.find(params[:category_id])
+        @category = current_user.categories.find(params[:id])
         @task = @category.tasks.find(params[:category_id])
         
     end

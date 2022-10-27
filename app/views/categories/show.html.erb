@@ -1,25 +1,26 @@
-<h1>You are viewing a Category!</h1>
+
+<div class="container mt-5 text-center">
+    <h1><%= @category.category_title %></h1>
+    <div class="row d-flex justify-content-center">
+        <div class="col-6"><h3 class="lead"><%= @category.category_detail %></h3></div>
+    </div>
+</div>
  
-<h1>Title</h1>
-<%= @category.category_title %>
-<h3>detail</h3>
-<%= @category.category_detail %>
-
-<br>
-
-<-------------->
-<-------------->
-
-<h2>Show Tasks</h2>
-<% @tasks.each do |task| %>
-    <h1>Title</h1>
-    <%= task.task_title %>
-    <h3>detail</h3>
-    <%= task.task_detail %>
-    <h3>due date</h3>
-    <% if task.due_date %>
-        <%= task.due_date.strftime("%B %d, %Y") %>
-    <% end %>
+<div class="container my-2">
+<div class="row text-center justify-content-center">
+    <div class="col-6"><h2>Tasks</h2></div>
+    <div class="col-6">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          Add Task
+        </button>
+    </div>
+</div>
+    <div class="row d-flex justify-content-center mt-4">
+    <% @tasks.each do |task| %>
+    
+    
+    
 
     <h3>ACTION</h3>
     <%= link_to 'Show', category_task_path(task.id)  %>
@@ -27,16 +28,85 @@
     <%= link_to 'Destroy Task', [task.category, task],
               method: :delete,
               data: { confirm: "Are you sure?" } %>
+
+        <div class="col-8 ">
+        <div class="accordion" id="accordionPanelsStayOpenExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-heading<%=task.id%>">
+              <button class="accordion-button position-relative" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<%=task.id%>" aria-expanded="true" aria-controls="panelsStayOpen-collapse<%=task.id%>">
+                <h5><%= task.task_title %></h5>
+                
+                <span class="position-absolute top-0 start-100 translate-middle p-2 bg-dark border border-light rounded-circle">
+                    <span class="visually-hidden">New alerts</span>
+                </span>
+
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapse<%=task.id%>" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-heading<%=task.id%>">
+              <div class="accordion-body">
+                
+                <p class="lead"><%= task.task_detail %></p>
+                
+                
+                <% if task.due_date %>
+                <div class="text-muted">Due: <%= task.due_date.strftime("%B %d, %Y") %></div>
+                <% end %>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+        <% end %>   
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<%= link_to "BACK", categories_path %>
+
+<h1>Deadlines due today</h1>
+<% @today_events.each do |today| %>
+    <%= today.task_title %>
+<% end %>
+<h1>Deadlines due future</h1>
+<% @before_events.each do |future| %>
+    <%= future.task_title %>
+<% end %>
+<h1>Deadlines due past</h1>
+<% @after_events.each do |past| %>
+    <%= past.task_title %>
 <% end %>
 
 
-<br>
-<-------------->
-<-------------->
 
-<br>
-
-<%= render "tasks/form" %>
-
-<%= link_to "BACK", categories_path %>
-<%= @events %>
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Add a Task</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= render "tasks/form" %>
+      </div>
+    </div>
+  </div>
+</div>

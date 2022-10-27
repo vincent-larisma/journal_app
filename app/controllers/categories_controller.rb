@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
     before_action :authenticate_user!
-    before_action :find_category_id, only: [:show, :edit, :update, :destroy]
+    before_action :find_category_id, only: [:show, :edit, :update]
 
     def index
         @categories = current_user.categories
@@ -9,9 +9,9 @@ class CategoriesController < ApplicationController
     def show
         @tasks = @category.tasks
 
-        @today_events = @category.tasks.where("due_date = ?", Date.current)
-        @after_events = @category.tasks.where("due_date > ?", Date.current)
-        @before_events = @category.tasks.where("due_date < ?", Date.current)
+        @today_events = @tasks.where("due_date = ?", Date.current)
+        @after_events = @tasks.where("due_date < ?", Date.current)
+        @before_events = @tasks.where("due_date > ?", Date.current)
 
     end
     
@@ -42,8 +42,8 @@ class CategoriesController < ApplicationController
     end
 
     def destroy 
+        @category = current_user.categories.find(params[:id])
         @category.destroy
-
         redirect_to categories_path
     end
 
@@ -56,5 +56,6 @@ class CategoriesController < ApplicationController
     def category_params
         params.require(:category).permit(:category_detail, :category_title)
     end
+    
 
 end

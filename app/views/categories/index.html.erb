@@ -1,21 +1,44 @@
-<h1>This is a index file</h1>
+
+<div class="container">
+    <%= render "flash" %>
+</div>
+
+<div class="container mt-2 d-flex justify-content-between ">
+<h2>Taskly, task for your dai-ly needs</h2>
+<%= link_to "Create New Task Category!", new_category_path, class:"btn btn-primary me-5 align-self-center"%>
+</div>
+
+<div class="container my-4">
+    <% if @categories.length > 0 %>
+        <div class="row">
+        <% @categories.each do |category| %>
+            <div class="col-4">
+            <div class="card mb-3" style="max-width: 25rem; min-height: 20rem;">
+            <div class="card-body">
+            <h5 class="card-title h1"><%= category.category_title %></h5>
+            <p class="card-text lead"><%= category.category_detail.length > 150 ? category.category_detail[0...150]... : category.category_detail == '' ? "No details..." : category.category_detail%></p>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+            <a class="btn btn-primary position-relative" data-method="get" href="/categories/<%= category.id %>"><i class="bi bi-eye"></i>-SHOW
+                <% if category.tasks.where("due_date = ?", Date.current).length > 0 %>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  <%= category.tasks.where("due_date = ?", Date.current).length %>
+                  <span class="visually-hidden">unread messages</span>
+                </span>
+                <% end %>
+            </a>
+            <a class="btn btn-primary" data-method="get" href="/categories/<%= category.id %>/edit"><i class="bi bi-pencil-square"></i>-EDIT</a>
+            <a data-confirm="Are you sure?" class="btn btn-danger" rel="nofollow" data-method="delete" href="/categories/<%= category.id %>"><i class="bi bi-trash3"></i>-DELETE</a>
+
+            </div> 
+            </div> 
+            </div>
+        <% end %>
+    <% else %>
+    <h1 class="text-center my-5"><%= image_tag "cow", class: "rounded mx-auto d-block w-50" %>No records Found</h1>
+    <% end %>
+   
+</div>
 
 
-<%= render "flash" %>
-<br>
 
-<% @categories.each do |category| %>
-    <h2>Title</h2>
-    <%= category.category_title %>
-    <h3>Details</h3>
-    <%= category.category_detail %>
-    <h3>Actions</h3>
-    <%= link_to "SHOW", category %> |
-    <%= link_to "EDIT", edit_category_path(category) %> |
-    <%= link_to "DELETE", category, method: :delete, data: {confirm: "Are you sure?"} %>
-
-<% end %>
-
-<br>
-
-<%= link_to "create new category", new_category_path %>
