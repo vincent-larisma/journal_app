@@ -1,17 +1,21 @@
 <%= form_with model: [ @category, @category.tasks.build ] do |form| %>
   <p>
-    <%= form.label :task_title %><br>
-    <%= form.text_field :task_title %>
+    <div class="form-floating">
+    <%= form.text_field :task_title, class:"form-control", placeholder: "Add Title Here" %>
+    <%= form.label :task_title, class: "form-label" %>
+    </div>
   </p>
   <p>
-    <%= form.label :task_detail %><br>
-    <%= form.text_area :task_detail %>
+   <div class="form-floating">
+    <%= form.text_area :task_detail, class:"form-control", placeholder: "Do chores..." %>
+    <%= form.label :task_detail, class: "form-label" %>
+    </div>
   </p>
   <p>
-    <%= form.label :due_date %><br>
-    <%= form.date_field :due_date %>
+    <%= form.label :due_date, class: "form-label" %>
+    <%= form.date_field :due_date, class:"form-control" %>
   </p>
   <p>
-    <%= form.submit %>
+    <%= form.submit "Submit", class: 'btn btn-primary' %>
   </p>
 <% end %>

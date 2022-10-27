@@ -1,19 +1,29 @@
-<h1>You are editing a task</h1>
 
-<%= form_with model: [ @category , @category.tasks.find(params[:category_id]) ] do |form| %>
-  <p>
-    <%= form.label :task_title %><br>
-    <%= form.text_field :task_title %>
-  </p>
-  <p>
-    <%= form.label :task_detail %><br>
-    <%= form.text_area :task_detail %>
-  </p>
-  <p>
-    <%= form.label :due_date %><br>
-    <%= form.date_field :due_date %>
-  </p>
-  <p>
-    <%= form.submit %>
-  </p>
-<% end %>
+<div class="container mt-5">
+  <div class="row d-flex justify-content-center">
+    <div class="col-4 border rounded-1">
+      <h1>Edit Task</h1>
+      <%= form_with model: [ @category , @category.tasks.find(params[:category_id]) ] do |form| %>
+       <p>
+          <div class="form-floating">
+          <%= form.text_field :task_title, class:"form-control", placeholder: "Add Title Here" %>
+          <%= form.label :task_title, class: "form-label" %>
+          </div>
+        </p>
+        <p>
+         <div class="form-floating">
+          <%= form.text_area :task_detail, class:"form-control", placeholder: "Do chores..." %>
+          <%= form.label :task_detail, class: "form-label" %>
+          </div>
+        </p>
+        <p>
+          <%= form.label :due_date, class: "form-label" %>
+          <%= form.date_field :due_date, class:"form-control" %>
+        </p>
+        <p>
+          <%= form.submit "Edit", class: 'btn btn-primary' %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>
