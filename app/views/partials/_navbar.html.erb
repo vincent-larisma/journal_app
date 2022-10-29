@@ -5,18 +5,20 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarScroll">
-      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-  
-      </ul>
+   <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+       <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="<%= root_path %>">Home</a>
+        </li>
+        </ul>
       <div class="d-flex">
        
-        <% if user_signed_in? %>
+        <% if user_signed_in? %>   
+        
          <a class="navbar-brand me-5" href="#">A lovely day, <span class="fw-semibold   "><%= current_user.email %></span></a>
-       
         <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-outline-info mx-1"%>
         <% else %>
-        <%= button_to "Sign In", new_user_session_path, class: "btn btn-outline-success mx-1" %>
-        <%= button_to "Sign Up", new_user_registration_path, class: "btn btn-outline-info mx-1" %>
+        <%= button_to "Sign In", new_user_session_path, method: :get, class: "btn btn-outline-success mx-1" %>
+        <%= button_to "Sign Up", new_user_registration_path, method: :get, class: "btn btn-outline-info mx-1" %>
     
         <% end %>
       </div>

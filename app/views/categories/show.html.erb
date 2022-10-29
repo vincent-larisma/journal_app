@@ -25,54 +25,15 @@
 </div>
     <div class="row d-flex justify-content-center mt-4">
     <% if @tasks.length > 0 %>
-      
-    
-    <% @tasks.each do |task| %>
-     <div class="col-8 ">
-        <div class="accordion" id="accordionPanelsStayOpenExample">
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-heading<%=task.id%>">
-              <button class="accordion-button position-relative" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<%=task.id%>" aria-expanded="true" aria-controls="panelsStayOpen-collapse<%=task.id%>">
-              <div class="container">
-              <div class="row ">
-              <div class="col-9"><h5><%= task.task_title %></h5></div>
-              <div class="col"><%= link_to '<i class="bi bi-eye"></i>'.html_safe, category_task_path(task.id), class: "btn btn-primary"  %>
-                <%= link_to '<i class="bi bi-pencil-square"></i>'.html_safe, edit_category_task_path(task.id), class: "btn btn-primary mx-2"  %>
-                <%= link_to '<i class="bi bi-trash3"></i>'.html_safe, [task.category, task],
-              method: :delete,
-              data: { confirm: "Are you sure?" }, class: "btn btn-danger" %></div></div>
-              </div>
-                <% if @today_events.where(id: task.id).length > 0 %>
-                <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
-                    <span class="visually-hidden">New alerts</span>
-                </span>
-                <% elsif @before_events.where(id: task.id).length > 0 %>
-                <span class="position-absolute top-0 start-100 translate-middle p-2 bg-primary border border-light rounded-circle">
-                    <span class="visually-hidden">New alerts</span>
-                </span>
-                <% elsif @after_events.where(id: task.id).length > 0 %>
-                <span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle">
-                    <span class="visually-hidden">New alerts</span>
-                </span>
-                <% end %>
-              </button>
-            </h2>
-            <div id="panelsStayOpen-collapse<%=task.id%>" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-heading<%=task.id%>">
-              <div class="accordion-body">
-                
-                <p class="lead"><%= task.task_detail %></p>
-                
-                
-                <% if task.due_date %>
-                <div class="text-muted">Due: <%= task.due_date.strftime("%B %d, %Y") %></div>
-                <% end %>
-              </div>
-            </div>
-            </div>
-          </div>
-        </div>
-        <% end %>   
-
+    <% @tasks.where("due_date = ?", Date.current).each do |task| %>
+      <%= render "partials/tasks", task: task %>
+    <% end %> 
+    <% @tasks.where("due_date != ?", Date.current).each do |task| %>
+      <%= render "partials/tasks", task: task %>
+    <% end %>  
+    <% @tasks.where(due_date: nil).each do |task| %>
+      <%= render "partials/tasks", task: task %>
+    <% end %>  
         </div>
     </div>
 </div>
@@ -81,48 +42,4 @@
     <h1 class="text-center "><%= image_tag "todo_working", class: "rounded mx-auto d-block w-25" %>No Tasks Yet</h1>
     <% end %>
 
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Add a Task</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <%= render "tasks/form" %>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Due Date Legend</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <ul class="list-group text-center">
-
-          <li class="list-group-item">Task Deadline has passed <span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning border border-light rounded-circle">
-                    <span class="visually-hidden">New alerts</span>
-                </span></li>
-          <li class="list-group-item">Task Deadline has yet to pass <span class="position-absolute top-0 start-100 translate-middle p-2 bg-primary border border-light rounded-circle">
-                    <span class="visually-hidden">New alerts</span>
-                </span></li>
-          <li class="list-group-item">Task Deadline is today <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
-                    <span class="visually-hidden">New alerts</span>
-                </span></li>
-        </ul>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+<%= render "partials/modals" %>

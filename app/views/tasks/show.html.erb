@@ -1,12 +1,17 @@
-<h1>I am in Show Task Page</h1>
+<div class="container mt-5">
+  <div class="row d-flex justify-content-center">
+    <div class="col-6">
+    <h1 class="display-4 mb-3 mt-2"><%= @task.task_title %></h1>
+    <h2 class="lead">Detail: <%= @task.task_detail %></h2>
+    <p class="text-muted">Deadline: <%= @task.due_date %></p>
+    <%= link_to "Back", category_path(@category), class:"btn btn-primary" %>
 
-<h1>Title: <%= @task.task_title %></h1>
+    </div>
+  </div>
+</div>
 
-<h2>Detail: <%= @task.task_detail %></h2>
 
-<h2>Deadline: <%= @task.due_date %></h2>
 
-<%= link_to "back", category_path(@category) %>
 
 
 
