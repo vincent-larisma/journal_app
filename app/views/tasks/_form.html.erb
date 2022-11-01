@@ -1,4 +1,10 @@
 <%= form_with model: [ @category, @category.tasks.build ] do |form| %>
+
+  <% @category.errors.full_messages.each do |msg|%>
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+      <%= msg %>
+    </div>
+  <% end %>
   <p>
     <div class="form-floating">
     <%= form.text_field :task_title, class:"form-control", placeholder: "Add Title Here" %>

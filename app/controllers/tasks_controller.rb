@@ -4,8 +4,13 @@ class TasksController < ApplicationController
     before_action :find_category_task_id, only: [:edit, :show]
 
     def create     
-        @category.tasks.create(task_params)
-        redirect_to category_path(@category), notice: 'Task was successfully created'
+       @task = @category.tasks.build(task_params)
+
+       if @task.save
+            redirect_to category_path(@category), notice: 'Task was successfully created'
+        else
+            redirect_to category_path(@category), notice: 'Task creation was unsuccessful'
+        end
     end
 
     def show
