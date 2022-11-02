@@ -21,7 +21,7 @@ class TasksTest < ApplicationSystemTestCase
   end
 
   test "show a Task" do
-    Capybara.page.find('.bi-eye').click
+    click_link "show"
 
     assert_text "Detail:"
     assert_text "Deadline:"
@@ -32,7 +32,7 @@ class TasksTest < ApplicationSystemTestCase
   end
 
   test "updating a Task" do
-    Capybara.page.find('.bi-pencil-square').click
+    click_link "edit"
 
     fill_in "Task title", with: @task.task_title
     fill_in "Task detail", with: @task.task_detail
@@ -45,8 +45,9 @@ class TasksTest < ApplicationSystemTestCase
 
   test "destroy a Task" do
     page.accept_confirm do
-      Capybara.page.find('.bi-trash3').click
+      click_link "delete"
     end
     assert_text "Task was successfully deleted"
   end
+
 end
