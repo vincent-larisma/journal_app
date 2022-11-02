@@ -9,4 +9,11 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     fill_in 'user_password', with: password
     click_on 'Log in'
   end
+
+  def show_task_index()
+    visit root_url
+    click_on "-SHOW", match: :first
+
+    assert_text "Tasks"
+  end
 end

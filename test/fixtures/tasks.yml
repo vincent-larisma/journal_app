@@ -3,11 +3,11 @@
 one:
   task_title: MyString
   task_detail: MyText
-  due_date: 2022-10-22 11:57:25
+  due_date: 2022-10-22
   category: one
 
 two:
   task_title: MyString
   task_detail: MyText
-  due_date: 2022-10-22 11:57:25
+  due_date: 2022-10-22
   category: two

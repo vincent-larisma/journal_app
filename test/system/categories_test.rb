@@ -17,8 +17,8 @@ class CategoriesTest < ApplicationSystemTestCase
     visit root_url
     click_link "Create New Task Category!"
 
-    fill_in "Category Title", with: "Random Title"
-    fill_in "Category Detail", with: "Random Detail"
+    fill_in "Category title", with: "Random Title"
+    fill_in "Category detail", with: "Random Detail"
     click_on "Submit"
 
     assert_text "Category was successfully created"
